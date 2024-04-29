@@ -1,0 +1,17 @@
+server:
+  port: 9102
+spring:
+  application:
+    name: zb-server
+  profiles:
+    active: prod
+  cloud:
+    nacos:
+      discovery:
+          #注册中心
+        server-addr: localhost:8848
+        # 配置中心
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+
