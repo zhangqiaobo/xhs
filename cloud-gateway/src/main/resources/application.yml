@@ -1,5 +1,9 @@
 server:
   port: 9001
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
 spring:
   application:
     name: cloud-gateway
@@ -7,11 +11,18 @@ spring:
     active: prod
   cloud:
     gateway:
+      # 这是自动负责均衡
+#      discovery:
+#        locator:
+#          enabled: true
+      # 手动负载均衡
       routes:
         - id: zb-server-route
           uri: lb://zb-server
           predicates:
-            - Path=/*
+            - Path=/zb/**
+          filters:
+            - StripPrefix=1
     nacos:
       discovery:
           #注册中心
